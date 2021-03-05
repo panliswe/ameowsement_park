@@ -1,0 +1,34 @@
+div#main-container {
+    background-color: black;
+    position: fixed;
+    height: 90%;
+    width: 90%;
+}
+
+/** THINGGY MOVING AROUND MODULE */
+:root {
+    --xLocation: 50%;
+    --yLocation: 50%;
+}
+
+div#testing {
+    background-color: red;
+    position: absolute;
+    left: var(--xLocation);
+    bottom: var(--yLocation);
+    height: 50px;
+    width: 50px;
+    border-radius: 40px;
+}
+
+/** LEVEL 2 MODULES */
+
+div#testing2 {
+    background-color: rgb(25, 0, 255);
+    position: absolute;
+    left: var(--xLocation);
+    top: var(--yLocation);
+    height: 50px;
+    width: 50px;
+    border-radius: 40px;
+}
