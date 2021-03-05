@@ -1,11 +1,11 @@
-div#main-container {
+/* div#main-container {
     background-color: black;
     position: fixed;
     height: 90%;
     width: 90%;
-}
+} */
 
-/** THINGGY MOVING AROUND MODULE */
+/* * THINGGY MOVING AROUND MODULE */
 :root {
     --xLocation: 50%;
     --yLocation: 50%;
@@ -31,4 +31,4 @@ div#testing2 {
     height: 50px;
     width: 50px;
     border-radius: 40px;
-}
+} 
