@@ -1,3 +1,3 @@
 class User < ApplicationRecord
-    has_many :game_records
+    has_many :redDotGames
 end

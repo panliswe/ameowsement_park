@@ -1,6 +1,6 @@
 require "test_helper"
 
-class GameRecordTest < ActiveSupport::TestCase
+class RedDotGameTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
