@@ -4,6 +4,40 @@
     height: 90%;
     width: 90%;
 } */
+body {
+    font-family: Comic Sans MS;
+    font-family: 'Cute Font', cursive;
+}
+
+div#main-container {
+    margin-left: 250px; /* Same as the width of the sidenav */
+    font-size: 18px; /* Increased text to enable scrolling */
+    padding: 0px 10px;
+    height: 100%;
+    width: 100%;
+  }
+
+.sidenav {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fac68cf3;
+    text-align: center;
+    overflow-y: scroll;
+    /* padding-bottom: 25px; */
+}
+
+.rule-div{
+    height: 80%;
+    width: 80%;
+    padding: 10%;
+    position: fixed;
+    background-color: firebrick;
+    color:rgb(25, 0, 255)
+}
 
 /* * THINGGY MOVING AROUND MODULE */
 :root {
@@ -11,14 +45,14 @@
     --yLocation: 50%;
 }
 
-div#testing {
+div#dot-lv1 {
     background-color: red;
     position: absolute;
     left: var(--xLocation);
     bottom: var(--yLocation);
-    height: 50px;
-    width: 50px;
-    border-radius: 40px;
+    height: 25px;
+    width: 25px;
+    border-radius: 13px;
 }
 
 /** LEVEL 2 MODULES */
