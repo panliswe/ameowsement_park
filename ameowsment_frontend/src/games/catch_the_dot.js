@@ -1,3 +1,5 @@
+
+
 class DotGameScore {
     constructor(user, score){
         this.user_id = user.id
@@ -20,9 +22,11 @@ const catchTheDotGameMenu = () =>{
 
 const countDownBeforeGame = () =>{
     clearMainDiv()
+    sideNav.style.display = 'none'
     const counterDiv = document.createElement('div')
     main.appendChild(counterDiv)
     let prepCounter = 3
+    counterDiv.innerText = 'Ready...'
     const displayCounter = () =>{
         console.log(prepCounter)
         if (prepCounter > 0){
@@ -43,57 +47,92 @@ const countDownBeforeGame = () =>{
 
 const dotGameStart = () =>{
     clearMainDiv()
-    const scoreCounter = 0
-    let gamePlay
-    
+    let scoreCounter = 0
+    let currentScore = document.createElement('h1')
+    const dot = document.createElement('div')
+    const reStart = document.createElement('button')
+    const quit = document.createElement('quit')
+    reStart.addEventListener('click', countDownBeforeGame)
+    quit.addEventListener('click', ()=>{
+        clearInterval(runningDot)
+        gameNav()
+    })
+    reStart.innerText = 'Restart'
+    quit.innerText = 'Quit'
+    currentScore.innerText = `Score: ${scoreCounter}`
+    dot.id = 'dot-lv1'
+    dot.addEventListener('click', ()=>{
+        scoreCounter+=100
+        dot.style.display = 'none'
+        currentScore.innerText = `Score: ${scoreCounter}`
+    })
+    let setDotProperty = (xLocation, yLocation) => {
+        dot.style.setProperty('display', 'block')
+        dot.style.setProperty('--xLocation', xLocation + '%')
+        dot.style.setProperty('--yLocation', yLocation + '%')
+    }
 
-        switch(scoreCounter){
-            case (scoreCounter < 500):
-                console.log('hello')
-                scoreCounter+=100
-
+    let changeLocation = () =>{
+        const xLocation = Math.random()*100;
+        console.log(xLocation)
+        const yLocation = Math.random()*100;
+        console.log(yLocation)
+        setDotProperty(xLocation, yLocation);
+    }
+    let runningDot = setInterval(() => {
+        if (scoreCounter < 500){
+            changeLocation()
         }
+        else if (scoreCounter >= 500 && scoreCounter <1000){
+            dot.id = 'dot-lv2'
+            dot.addEventListener('click', ()=>scoreCounter+=5)
+            changeLocation()
+        }
+        else if (scoreCounter >= 1000 && scoreCounter <1500){
+            dot.id = 'dot-lv3'
+            dot.addEventListener('click',()=>scoreCounter+=7)
+            changeLocation()
+        }
+        else if (scoreCounter >= 1500){
+            dot.id = 'dot-lv4'
+            changeLocation()
+        }
+    }, 1400);
 
-    let score = document.createElement('h1')
-    score.innerText = `Score: ${scoreCounter}`
-    const dotLv1 = document.createElement('div')
-    dotLv1.id = 'dot-lv1'
-    main.append(score, dotLv1)
+    
+    setTimeout(() => {
+        let record = new DotGameScore(currentUser, scoreCounter)
+        clearInterval(runningDot)
+        dotSummary(record)
+    }, 0);
+    
+    
+    main.append(currentScore, dot, reStart, quit)
 }
 
+const dotSummary = (record) =>{
+    main.innerHTML = ''
+    const summaryDiv = document.createElement('div')
+    const report = document.createElement('p')
+    const reStart = document.createElement('button')
+    const quit = document.createElement('button')
+    const submit = document.createElement('button')
+    report.innerText = `Your Score: ${record.score}`
+    submit.innerText = 'SUBMIT'
+    quit.innerText = 'QUIT'
+    reStart.innerText = 'RESTART'
+    submit.addEventListener('click', (e)=>{
+        submitScore(record)
+        e.target.disabled = 'disabled'
+    })
+    reStart.addEventListener('click', countDownBeforeGame)
+    quit.addEventListener('click', gameNav)
+    summaryDiv.append(report,submit, reStart, quit)
+    main.appendChild(summaryDiv)
+    console.log(record.score)
+}
 
-
-
-// //* THINGGY MOVING AROUND MODULES
-// let div = document.querySelector('div#dot-lv1')
-
-// let setXProperty = (xLocation, yLocation) => {
-//     div.style.setProperty('--xLocation', xLocation + '%')
-//     div.style.setProperty('--yLocation', yLocation + '%')
-// }
-
-// let changeLocation = () =>{
-//     const xLocation = Math.random()*100;
-//     console.log(xLocation)
-//     const yLocation = Math.random()*100;
-//     setXProperty(xLocation, yLocation);
-// }
-
-// setInterval(changeLocation, 1200);
-
-// //* LV2 MODULES
-// let div2 = document.querySelector('div#testing2')
-
-// let setYProperty = (xLocation, yLocation) => {
-//     div2.style.setProperty('--xLocation', xLocation + '%')
-//     div2.style.setProperty('--yLocation', yLocation + '%')
-// }
-
-// let changeAnotherLocation = () =>{
-//     const xLocation = Math.random()*100;
-//     console.log(xLocation)
-//     const yLocation = Math.random()*100;
-//     setYProperty(xLocation, yLocation);
-// }
-
-// setInterval(changeAnotherLocation, 1500)
+const submitScore = (record) =>{
+    axios.post(redDotURL, record)
+    .then(alert('Score sumitted successfully'))
+}
