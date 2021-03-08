@@ -7,7 +7,7 @@ class RedDotGamesController < ApplicationController
 
     def create
         round = RedDotGame.create(score: params[:score], user_id: params[:user_id])
-        render json: user
+        render json: round
     end
 
     def destroy
