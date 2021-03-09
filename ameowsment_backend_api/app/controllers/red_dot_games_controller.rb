@@ -16,7 +16,7 @@ class RedDotGamesController < ApplicationController
     end
 
     def destroy
-        round = RedDotGame.find(param[:id])
+        round = RedDotGame.find(params[:id])
         round.destroy
     end
 end

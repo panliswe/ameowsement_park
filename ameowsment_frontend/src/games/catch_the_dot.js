@@ -195,3 +195,7 @@ const renderLeaderBoard = async () =>{
     }
     return table
 }
+
+const moreGames = () =>{
+    alert('Moewr games in progress, please check back soon')
+}

@@ -54,21 +54,16 @@ ul.no-bullets {
     cursor: pointer;
 }
 
-.leader-title{
-    font-size: 0.8em;
-    margin: 5px 5px 5px 5px;
-}
-
-
 header {
     color:yellow;
-    font-size: 3.5rem;
-    margin: 50px 10px 0px 10px;
+    font-size: 3rem;
+    margin: 25px 10px 0px 10px;
     border-radius: 5px;
     text-shadow: 2px 2px #888888;
     animation: bounceIn 1s;
-
+    cursor: pointer;
 }
+
 
 .nav-bar-item {
     background-color: #daaad3;
@@ -94,6 +89,14 @@ header {
     }
 }
 
+.title{
+    color: yellow;
+    font-size: 17px;
+    margin: 5px 5px 5px 5px;
+    text-shadow: 2px 2px #888888;
+    cursor:default;
+}
+
 .hover-enlarge {
     transition: transform .1s;
 }
@@ -116,18 +119,6 @@ header {
     /* padding-bottom: 25px; */
 }
 
-div#main-container {
-    margin-left: 250px; /* Same as the width of the sidenav */
-    font-size: 18px; /* Increased text to enable scrolling */
-    position: relative; 
-    padding: 0px 10px;
-    min-height: 600px;
-    min-width: 1450;
-    /* height: auto;
-    width: auto; */
-  }
-
-
 .rule-div{
     height: 600px;
     width: 800px;
@@ -135,6 +126,27 @@ div#main-container {
     position: absolute;
     background-color: rgb(252, 218, 106);
     color:rgb(6, 6, 7)
+}
+
+/** MAIN AREA THINGGY */
+
+div#main-container {
+    display: flex;
+    margin-left: 250px; /* Same as the width of the sidenav */
+    font-size: 18px; /* Increased text to enable scrolling */
+    position: relative; 
+    padding: 0px 10px;
+    min-height: 600px;
+    min-width: 1450;
+    text-align: center;
+    /* height: auto;
+    width: auto; */
+  }
+
+.main-sub-div{
+    background-color: #daaad3;
+    border-radius: 10px;
+    animation: bounceIn 1s;
 }
 
 /* * THINGGY MOVING AROUND MODULE */
