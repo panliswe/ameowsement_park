@@ -1,4 +1,4 @@
 class RedDotGameSerializer < ActiveModel::Serializer
-  attributes :id, :score
+  attributes :id, :score, :created_at
   has_one :user
 end

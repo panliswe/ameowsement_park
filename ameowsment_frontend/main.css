@@ -1,19 +1,98 @@
-/* div#main-container {
-    background-color: black;
-    position: fixed;
-    height: 90%;
-    width: 90%;
-} */
+/** GENERAL SETUP */
 body {
+    background-color: #ffd9b5;
     font-family: Comic Sans MS;
     font-family: 'Cute Font', cursive;
 }
+
+button{
+    background:#77ccb8;
+    color:#fff;
+    border:none;
+    position:relative;
+    height:60px;
+    font-size:0.5em;
+    padding:0 2em;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 5px 5px #888888;
+}
+button:hover{
+    background:#fff;
+    color:#1AAB8A;
+}
+  button:before,button:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+  button:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+    border-radius: inherit;
+  }
+  button:hover:before,button:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+/** NAV BAR STYLING */
 
 ul.no-bullets {
     list-style-type: none; /* Remove bullets */
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margins */
-  }
+    cursor: pointer;
+}
+
+.leader-title{
+    font-size: 0.8em;
+    margin: 5px 5px 5px 5px;
+}
+
+
+header {
+    color:yellow;
+    font-size: 3.5rem;
+    margin: 50px 10px 0px 10px;
+    border-radius: 5px;
+    text-shadow: 2px 2px #888888;
+    animation: bounceIn 1s;
+
+}
+
+.nav-bar-item {
+    background-color: #daaad3;
+    margin-top: 50px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: 5px 5px #888888;
+    animation: bounceIn 1s;
+    text-align: center;
+}
+
+@keyframes bounceIn{
+    0%{
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
 
 .hover-enlarge {
     transition: transform .1s;
@@ -23,35 +102,39 @@ ul.no-bullets {
     transform: scale(1.2);
 }
 
-div#main-container {
-    margin-left: 250px; /* Same as the width of the sidenav */
-    font-size: 18px; /* Increased text to enable scrolling */
-    position: fixed; 
-    padding: 0px 10px;
-    height: auto;
-    width: auto;
-  }
-
 .sidenav {
     height: 100%;
     width: 250px;
+    font-size: 25px;
     position: fixed;
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #fac68cf3;
+    background-color: #90cbda;
     text-align: center;
     overflow-y: scroll;
     /* padding-bottom: 25px; */
 }
 
+div#main-container {
+    margin-left: 250px; /* Same as the width of the sidenav */
+    font-size: 18px; /* Increased text to enable scrolling */
+    position: relative; 
+    padding: 0px 10px;
+    min-height: 600px;
+    min-width: 1450;
+    /* height: auto;
+    width: auto; */
+  }
+
+
 .rule-div{
-    height: 80%;
-    width: 80%;
-    padding: 10%;
-    position: relative;
-    background-color: firebrick;
-    color:rgb(25, 0, 255)
+    height: 600px;
+    width: 800px;
+    padding: 10% 10% 10% 10%;
+    position: absolute;
+    background-color: rgb(252, 218, 106);
+    color:rgb(6, 6, 7)
 }
 
 /* * THINGGY MOVING AROUND MODULE */
@@ -97,11 +180,11 @@ div#dot-lv4 {
     position: fixed;
     left: var(--xLocation);
     top: var(--yLocation);
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
     border-radius: 12px;
 
-    animation-duration: 3s;
+    animation-duration: 4s;
     animation-name: moving;
     animation-iteration-count: infinite;
     animation-direction:alternate;

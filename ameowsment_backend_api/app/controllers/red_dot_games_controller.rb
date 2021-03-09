@@ -2,7 +2,12 @@ class RedDotGamesController < ApplicationController
 
     def index
         rounds = RedDotGame.all
-        render json: games
+        render json: rounds
+    end
+
+    def topscore
+        rounds = RedDotGame.order('score DESC').limit(10)
+        render json: rounds
     end
 
     def create

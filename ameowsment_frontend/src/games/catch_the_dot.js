@@ -28,7 +28,6 @@ const countDownBeforeGame = () =>{
     let prepCounter = 3
     counterDiv.innerText = 'Ready...'
     const displayCounter = () =>{
-        console.log(prepCounter)
         if (prepCounter > 0){
             counterDiv.innerText = prepCounter
             prepCounter--
@@ -39,6 +38,7 @@ const countDownBeforeGame = () =>{
         else{
             clearInterval(interval)
             dotGameStart()
+            console.log('Game Start')
         }
     }
     let interval = setInterval(displayCounter, 1000)
@@ -48,11 +48,17 @@ const countDownBeforeGame = () =>{
 const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
+    let timer = 15
     let currentScore = document.createElement('h1')
+    const timerDisplay = document.createElement('h1')
     const dot = document.createElement('div')
     const reStart = document.createElement('button')
     const quit = document.createElement('quit')
-    reStart.addEventListener('click', countDownBeforeGame)
+    reStart.addEventListener('click', ()=>{
+        clearInterval(runningDot)
+        clearInterval(gameTime)
+        countDownBeforeGame()
+    })
     quit.addEventListener('click', ()=>{
         clearInterval(runningDot)
         gameNav()
@@ -60,6 +66,8 @@ const dotGameStart = () =>{
     reStart.innerText = 'Restart'
     quit.innerText = 'Quit'
     currentScore.innerText = `Score: ${scoreCounter}`
+    const changeTime = () => timerDisplay.innerText = `Time: ${timer}s`
+    changeTime()
     dot.id = 'dot-lv1'
     dot.addEventListener('click', ()=>{
         scoreCounter+=100
@@ -99,15 +107,32 @@ const dotGameStart = () =>{
         }
     }, 1400);
 
+
+    const gameTime = setInterval(()=>gameCountDown(),1000)
     
-    setTimeout(() => {
+    const gameCountDown = () => {
+        if(timer > 5){
+            timer--
+            changeTime()
+        } else if (timer <=5 && timer >3){
+            timer--
+            changeTime()
+        } else if (timer === 0){
+            endGame()
+        } else {
+            timer--
+            changeTime()
+        }
+    }
+
+    const endGame = () =>{
         let record = new DotGameScore(currentUser, scoreCounter)
         clearInterval(runningDot)
+        clearInterval(gameTime)
         dotSummary(record)
-    }, 0);
+    }
     
-    
-    main.append(currentScore, dot, reStart, quit)
+    main.append(currentScore,timerDisplay, dot, reStart, quit)
 }
 
 const dotSummary = (record) =>{
@@ -128,6 +153,7 @@ const dotSummary = (record) =>{
     reStart.addEventListener('click', countDownBeforeGame)
     quit.addEventListener('click', gameNav)
     summaryDiv.append(report,submit, reStart, quit)
+    renderLeaderBoard().then(leaderBoard => summaryDiv.appendChild(leaderBoard))
     main.appendChild(summaryDiv)
     console.log(record.score)
 }
@@ -135,4 +161,37 @@ const dotSummary = (record) =>{
 const submitScore = (record) =>{
     axios.post(redDotURL, record)
     .then(alert('Score sumitted successfully'))
+}
+
+// const fetchHighScore = () => {
+    
+//     .then(r => console.log(r))
+// }
+
+const renderLeaderBoard = async () =>{
+    const table = document.createElement('table')
+    const titleTr = document.createElement('tr')
+    const rankTh = document.createElement('th')
+    const usernameTh = document.createElement('th')
+    const scoreTh = document.createElement('th')
+
+    rankTh.innerText = 'Rank'
+    usernameTh.innerText = 'Username'
+    scoreTh.innerText = 'Score'
+    titleTr.append(rankTh, usernameTh, scoreTh)
+    table.appendChild(titleTr)
+
+    const res = await axios.get(`${redDotURL}/topscore`)
+    for(let rank = 0; rank < res.data.length; rank++){
+        const recordTr = document.createElement('tr')
+        const rankTh = document.createElement('th')
+        const usernameTh = document.createElement('th')
+        const scoreTh = document.createElement('th')
+        rankTh.innerText = `${rank+1}`
+        usernameTh.innerText = `${res.data[rank].user.username}`
+        scoreTh.innerText = `${res.data[rank].score}`
+        recordTr.append(rankTh, usernameTh, scoreTh)
+        table.appendChild(recordTr)
+    }
+    return table
 }
