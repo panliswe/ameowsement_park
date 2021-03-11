@@ -4,6 +4,7 @@ const topDiv = document.querySelector('div#top-div')
 const main = document.querySelector('div#main-container')
 const sideNav = document.querySelector('div.sidenav')
 const myBGM = document.querySelector('audio#BGM')
+const scoreSound = document.querySelector('audio#dotScore')
 const gamesObj = {'Catch the Dot': catchTheDotGameMenu, 'More Games to Come': moreGames}
 let currentUser
 
@@ -18,6 +19,14 @@ const userLogin = () =>{
     const userInput = document.createElement('input')
     const submitBtn = document.createElement('button')
     const br = document.createElement('br')
+    const musicDiv = document.createElement('div')
+    const music = document.createElement('i')
+    musicDiv.className = 'bottom-right-corner'
+    musicDiv.id = 'mute-control'
+    music.classList.add('fas', 'fa-volume-up', 'hover-enlarge')
+    music.addEventListener('click', (e)=>toggleMute(e))
+    musicDiv.append(music)
+    topDiv.append(musicDiv)
     loginDiv.className = 'nav-bar-item'
     userInput.type = 'text'
     userInput.name = 'username'
@@ -40,7 +49,6 @@ const submitHandle = (e) =>{
     axios.post(usersURL, userName)
     .then(r => {
         currentUser = r.data
-        BGMplay()
         gameNav()
     })
 }
@@ -48,6 +56,8 @@ const submitHandle = (e) =>{
 const gameNav = () =>{
     main.innerHTML = ''
     main.id = 'main-container'
+    myBGM.src = 'assets/audio/bathtime-funk-all-good-folks-main-version-01-16-689.mp3'
+    BGMplay()
     renderLogo()
     sideNav.style.display = 'block'
     sideNav.innerHTML = ''
@@ -220,23 +230,17 @@ const updateUser = (e) =>{
 
 const BGMplay = () =>{
     myBGM.loop = true
-    myBGM.volume = 0.1
+    myBGM.volume = 0.08
     myBGM.play()
-    const musicDiv = document.createElement('div')
-    const music = document.createElement('i')
-    musicDiv.className = 'bottom-right-corner'
-    musicDiv.id = 'mute-control'
-    music.classList.add('fas', 'fa-volume-up', 'hover-enlarge')
-    music.addEventListener('click', (e)=>toggleMute(e))
-    musicDiv.append(music)
-    topDiv.append(musicDiv)
 }
 
 const toggleMute = (e) =>{
     if(myBGM.muted){
+        scoreSound.muted = ''
         myBGM.muted = ''
         e.target.className = 'fas fa-volume-up hover-enlarge'
     } else {
+        scoreSound.muted = true
         myBGM.muted = true
         e.target.className = 'fas fa-volume-mute hover-enlarge'
     }

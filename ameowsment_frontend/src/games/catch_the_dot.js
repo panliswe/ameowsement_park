@@ -9,21 +9,26 @@ class DotGameScore {
 const catchTheDotGameMenu = () =>{
     clearMainDiv()
     const ruleDiv = document.createElement('div')
+    const header = document.createElement('header')
+    const rule = document.createElement('div')
     const startBtn = document.createElement('button')
     const br = document.createElement('br')
 
     ruleDiv.className = 'rule-div'
-    ruleDiv.innerText = 'Mysterious red dots randomly popping up in the dark! Gotta catch it meow!'
+    header.innerText = 'Catch the Dot'
+    rule.innerText = 'Mysterious red dots randomly popping up in the dark! Gotta catch it meow!'
     startBtn.innerText = 'START'
     startBtn.className = 'hover-enlarge'
     startBtn.addEventListener('click', countDownBeforeGame)
 
-    ruleDiv.append(br, startBtn)
+    ruleDiv.append(header, rule, br, startBtn)
     main.append(ruleDiv)
 } 
 
 const countDownBeforeGame = () =>{
     clearMainDiv()
+    myBGM.src = 'assets/audio/funky-junk-all-good-folks-main-version-01-01-192.mp3'
+    BGMplay()
     main.id = 'black-fade-in'
     main.addEventListener('click', changeCursor)
     sideNav.style.display = 'none'
@@ -94,6 +99,7 @@ const dotGameStart = () =>{
     })
 
     dot.addEventListener('click', ()=>{
+        scoreSound.play()
         scoreCounter+=100
         dot.style.display = 'none'
         currentScore.innerText = `Score: ${scoreCounter}`
