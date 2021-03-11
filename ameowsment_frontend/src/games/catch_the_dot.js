@@ -13,7 +13,7 @@ const catchTheDotGameMenu = () =>{
     const br = document.createElement('br')
 
     ruleDiv.className = 'rule-div'
-    ruleDiv.innerText = 'Mysterious red dot randomly appeared in the dark! Gotta catch it meow!'
+    ruleDiv.innerText = 'Mysterious red dots randomly popping up in the dark! Gotta catch it meow!'
     startBtn.innerText = 'START'
     startBtn.className = 'hover-enlarge'
     startBtn.addEventListener('click', countDownBeforeGame)
@@ -27,11 +27,14 @@ const countDownBeforeGame = () =>{
     main.id = 'black-fade-in'
     main.addEventListener('click', changeCursor)
     sideNav.style.display = 'none'
+
     const counterDiv = document.createElement('div')
-    counterDiv.id = 'countdown'
-    main.appendChild(counterDiv)
+    const mute = document.querySelector('div#mute-control')
     let prepCounter = 3
+    counterDiv.id = 'countdown'
     counterDiv.innerText = 'Ready...'
+    mute.className = 'bottom-right-corner-ingame'
+
     const displayCounter = () =>{
         if (prepCounter > 0){
             counterDiv.innerText = prepCounter
@@ -47,6 +50,7 @@ const countDownBeforeGame = () =>{
         }
     }
     let interval = setInterval(displayCounter, 1000)
+    main.appendChild(counterDiv)
 }
 
 const changeCursor = () => {
@@ -59,6 +63,7 @@ const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
     let timer = 45
+    const numberDiv = document.createElement('div')
     let currentScore = document.createElement('h1')
     const timerDisplay = document.createElement('h1')
     const buttonDiv = document.createElement('div')
@@ -66,6 +71,7 @@ const dotGameStart = () =>{
     const reStart = document.createElement('i')
     const quit = document.createElement('i')
 
+    numberDiv.disabled ='disabled'
     buttonDiv.id = 'right-top-corner'
     reStart.classList.add('fas', 'fa-undo', 'hover-enlarge')
     reStart.title = 'Restart'
@@ -123,7 +129,7 @@ const dotGameStart = () =>{
             dot.id = 'dot-lv4'
             changeLocation()
         }
-    }, 1400);
+    }, 1700);
 
     const gameTime = setInterval(()=>gameCountDown(),1000)
 //* SET UP FOR ANIMATION FOR TIMER SOON
@@ -150,8 +156,9 @@ const dotGameStart = () =>{
         dotSummary(record)
     }
     
+    numberDiv.append(currentScore, timerDisplay)
     buttonDiv.append(reStart, quit)
-    main.append(currentScore,timerDisplay, dot, buttonDiv)
+    main.append(numberDiv, dot, buttonDiv)
 }
 
 const dotSummary = (record) =>{

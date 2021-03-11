@@ -40,8 +40,8 @@ const submitHandle = (e) =>{
     axios.post(usersURL, userName)
     .then(r => {
         currentUser = r.data
-        gameNav()
         BGMplay()
+        gameNav()
     })
 }
 
@@ -58,6 +58,7 @@ const gameNav = () =>{
     const gamesUL = document.createElement('ul')
     const leaderBoardDiv = document.createElement('div')
     const highScore = document.createElement('p')
+    const mute = document.querySelector('div#mute-control')
 
     greetingDiv.className ='hover-enlarge'
     greeting.innerText = `Welcome, ${currentUser.username}`
@@ -72,6 +73,7 @@ const gameNav = () =>{
     leaderBoardDiv.className = 'nav-bar-item'
     leaderBoardDiv.id = 'leaderboard'
     leaderBoardDiv.style.display ='none'
+    mute.className = 'bottom-right-corner'
 
     greetingDiv.addEventListener('click', getUser)
     for (const game in gamesObj){
@@ -181,7 +183,7 @@ const destroyRecord = async(e, confirmation) => {
             e.target.parentElement.parentElement.remove()
         })
     } else if (sure && topTen.includes(idNum)){
-        warningPop('Cannot delete record on the leaderboard')
+        warningPop('Cannot delete top 10 record')
     }
 }
 
@@ -210,6 +212,7 @@ const updateUser = (e) =>{
         console.log(user)
         const greeting = document.querySelector('#greeting')
         currentUser = user.data
+        warningPop('Username updated')
         greeting.innerText = `Welcome, ${currentUser.username}`
         getUser()
     })
@@ -222,7 +225,8 @@ const BGMplay = () =>{
     const musicDiv = document.createElement('div')
     const music = document.createElement('i')
     musicDiv.className = 'bottom-right-corner'
-    music.classList.add('fas', 'fa-volume-up')
+    musicDiv.id = 'mute-control'
+    music.classList.add('fas', 'fa-volume-up', 'hover-enlarge')
     music.addEventListener('click', (e)=>toggleMute(e))
     musicDiv.append(music)
     topDiv.append(musicDiv)
@@ -231,10 +235,10 @@ const BGMplay = () =>{
 const toggleMute = (e) =>{
     if(myBGM.muted){
         myBGM.muted = ''
-        e.target.className = 'fas fa-volume-up'
+        e.target.className = 'fas fa-volume-up hover-enlarge'
     } else {
         myBGM.muted = true
-        e.target.className = 'fas fa-volume-mute'
+        e.target.className = 'fas fa-volume-mute hover-enlarge'
     }
 }
 

@@ -12,7 +12,17 @@ i{
 
 .bottom-right-corner{
     font-size: 2rem;
-    color:rgb(30, 140, 204);
+    color:rgb(0, 0, 0);
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.bottom-right-corner-ingame{
+    font-size: 2rem;
+    color:rgb(255, 255, 255);
     position: absolute;
     bottom: 15px;
     right: 15px;
@@ -30,11 +40,6 @@ i{
     text-shadow: 1px 1px #888888;
 }
 
-#logo-phrase{
-    animation-name: bounceIn;
-    animation-delay: 1s;
-    animation-duration: 1s;
-}
 
 #top-div{
     background-color: #ffd9b5;
@@ -220,7 +225,7 @@ div#main-container {
     height: 100%;
     color: white;
     background-color: black;
-    cursor: url(assets/img/dot_before.png), auto;
+    cursor: url(assets/img/dot_before.png) 17 10, auto;
 }
 
 #black-fade-out{
@@ -230,7 +235,7 @@ div#main-container {
     height: 100%;
     color: white;
     background-color: black;
-    cursor: url(assets/img/dot_after.png), auto;
+    cursor: url(assets/img/dot_after.png) 30 25, auto;
 }
 
 .rule-div{
