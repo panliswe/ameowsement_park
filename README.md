@@ -28,10 +28,10 @@ git clone https://github.com/oopanpan/ameowsement.git
 ```
 
 ### check environment
-this project was built in ruby 2.6.1 and postgreSQL as database, you can install using homebrew
+this project was built in ruby 2.7.1 and postgreSQL as database, you can install using homebrew
 
 ```bash
-$ brew install 2.6.1
+$ brew install ruby
 $ brew install postgres
 ```
 
@@ -40,7 +40,7 @@ $ brew install postgres
 **in ameowsment_backend_api**
 ```bash
 $ bundle && yarn
-$ rails setup
+$ rails db:setup
 ```
 
 ### start the server

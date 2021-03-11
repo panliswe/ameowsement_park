@@ -1,5 +1,5 @@
-const usersURL = "http://localhost:3000/users"
-const redDotURL = "http://localhost:3000/red_dot_games"
+const usersURL = "https://ameowsement-park.herokuapp.com/users"
+const redDotURL = "https://ameowsement-park.herokuapp.com/red_dot_games"
 const topDiv = document.querySelector('div#top-div')
 const main = document.querySelector('div#main-container')
 const sideNav = document.querySelector('div.sidenav')
@@ -236,12 +236,12 @@ const BGMplay = () =>{
 
 const toggleMute = (e) =>{
     if(myBGM.muted){
-        scoreSound.muted = ''
-        myBGM.muted = ''
+        scoreSound.muted = !scoreSound.muted
+        myBGM.muted = !myBGM.muted
         e.target.className = 'fas fa-volume-up hover-enlarge'
     } else {
-        scoreSound.muted = true
-        myBGM.muted = true
+        scoreSound.muted = !scoreSound.muted
+        myBGM.muted = !myBGM.muted
         e.target.className = 'fas fa-volume-mute hover-enlarge'
     }
 }
