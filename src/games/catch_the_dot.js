@@ -100,7 +100,7 @@ const dotGameStart = () =>{
 
     dot.addEventListener('click', ()=>{
         scoreSound.play()
-        scoreCounter+=90
+        scoreCounter+= 90
         dot.style.display = 'none'
         currentScore.innerText = `Score: ${scoreCounter}`
     })
@@ -123,17 +123,17 @@ const dotGameStart = () =>{
         }
         else if (scoreCounter >= 500 && scoreCounter <1000){
             dot.id = 'dot-lv2'
-            dot.addEventListener('click', ()=>scoreCounter+=15)
+            dot.addEventListener('click', ()=>scoreCounter+=4)
             changeLocation()
         }
         else if (scoreCounter >= 1000 && scoreCounter <1500){
             dot.id = 'dot-lv3'
-            dot.addEventListener('click',()=>scoreCounter+=7)
+            dot.addEventListener('click',()=>scoreCounter+=9)
             changeLocation()
         }
         else if (scoreCounter >= 1500){
             dot.id = 'dot-lv4'
-            dot.addEventListener('click', ()=>scoreCounter+=50)
+            dot.addEventListener('click', ()=>scoreCounter+=13)
             changeLocation()
         }
     }, 1400);
