@@ -16,7 +16,7 @@ Each user will have access to all of their game records and will be able to dele
 
 ## Play Now
 
-To see the app on public domain, click [here](http://futurelinkgoeshere)
+To see the app on public domain, click [here](https://oopanpan.github.io/ameowsement)
 
 ## Play Later
 
