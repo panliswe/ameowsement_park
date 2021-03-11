@@ -25,6 +25,7 @@ const catchTheDotGameMenu = () =>{
 const countDownBeforeGame = () =>{
     clearMainDiv()
     main.id = 'black-fade-in'
+    main.addEventListener('click', changeCursor)
     sideNav.style.display = 'none'
     const counterDiv = document.createElement('div')
     counterDiv.id = 'countdown'
@@ -48,29 +49,22 @@ const countDownBeforeGame = () =>{
     let interval = setInterval(displayCounter, 1000)
 }
 
-const changeCursor = (e, timer) => {
+const changeCursor = () => {
     main.id = 'black-fade-out'
-    if(timer === -1){
-        console.log('regular executed')
-        main.id ='main-container'
-    } else {
-        console.log('black one executed')
-        setTimeout(()=>main.id ='black-fade-in',150)
-    }
+    setTimeout(()=>main.id ='black-fade-in',150)
 }
 
 
 const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
-    let timer = 5
+    let timer = 45
     let currentScore = document.createElement('h1')
     const timerDisplay = document.createElement('h1')
     const buttonDiv = document.createElement('div')
     const dot = document.createElement('div')
     const reStart = document.createElement('i')
     const quit = document.createElement('i')
-    main.addEventListener('click', (e)=>changeCursor(e, timer))
 
     buttonDiv.id = 'right-top-corner'
     reStart.classList.add('fas', 'fa-undo', 'hover-enlarge')
@@ -141,8 +135,8 @@ const dotGameStart = () =>{
             timer--
             changeTime()
         } else if (timer === 0){
-            timer--
-            setTimeout(endGame(),1000)
+            main.removeEventListener('click', changeCursor)
+            endGame()
         } else {
             timer--
             changeTime()
