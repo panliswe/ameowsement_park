@@ -6,8 +6,6 @@ const myBGM = document.querySelector('audio#BGM')
 const gamesObj = {'Catch the Dot': catchTheDotGameMenu, 'More Games to Come': moreGames}
 let currentUser
 
-
-
 document.addEventListener('DOMContentLoaded',()=>{
     userLogin()
 })
@@ -154,6 +152,7 @@ const getUser = async() =>{
         const dateTh = document.createElement('th')
         const deleteTh = document.createElement('th')
         const deleteIcon = document.createElement('i')
+        deleteIcon.className ='hover-enlarge'
         deleteIcon.id = user.data.redDotGames[i].id
         scoreTh.innerText = user.data.redDotGames[i].score
         dateTh.innerText = user.data.redDotGames[i].created_at.split('T')[0]
@@ -212,12 +211,28 @@ const updateUser = (e) =>{
     })
 }
 
-
-
 const BGMplay = () =>{
     myBGM.loop = true
     myBGM.volume = 0.1
     myBGM.play()
+    const musicDiv = document.createElement('div')
+    const music = document.createElement('i')
+    const top = document.querySelector('div#top-div')
+    musicDiv.className = 'bottom-right-corner'
+    music.classList.add('fas', 'fa-volume-up')
+    music.addEventListener('click', (e)=>toggleMute(e))
+    musicDiv.append(music)
+    top.append(musicDiv)
+}
+
+const toggleMute = (e) =>{
+    if(myBGM.muted){
+        myBGM.muted = ''
+        e.target.className = 'fas fa-volume-up'
+    } else {
+        myBGM.muted = true
+        e.target.className = 'fas fa-volume-mute'
+    }
 }
 
 const clearMainDiv = () =>{

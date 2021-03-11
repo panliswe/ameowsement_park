@@ -6,6 +6,19 @@ body {
     overflow: hidden;
 }
 
+i{
+    margin: 5px;
+}
+
+.bottom-right-corner{
+    font-size: 2rem;
+    color:rgb(30, 140, 204);
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    z-index: 1000;
+}
+
 #logo{
     position: fixed;
     margin-left: 10%;
@@ -28,6 +41,7 @@ body {
     width: 100%;
     height: 100%;
 }
+
 
 button{
     background:#77ccb8;
@@ -146,25 +160,32 @@ header {
 /** MAIN AREA THINGGY */
 
 div#main-container {
-    background-color: #fae4cf;
+    background-color: #cdffda;
     margin-left: 250px; /* Same as the width of the sidenav */
-    font-size: 18px; /* Increased text to enable scrolling */
+    font-size: 2rem; /* Increased text to enable scrolling */
     position: relative; 
     padding: 0px 10px;
     height: 100vh;
-    /* min-height: 800px;
-    min-width: 1450px;
-    height: auto;
-    width: auto; */
   }
 
 .main-sub-div{
+    margin-top: 15px;
+    margin-left: 10px;
+    font-size: 1.4rem;
     background-color: #daaad3;
     border-radius: 10px;
     animation: bounceIn 1s;
 }
 
 /** GAME STYLING */
+
+#right-top-corner{
+    font-size: 2rem;
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    z-index: 1000;
+}
 
 #black-fade-in{
     margin:0 0 0 0;

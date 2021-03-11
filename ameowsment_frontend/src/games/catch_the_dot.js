@@ -53,15 +53,18 @@ const countDownBeforeGame = () =>{
 const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
-    let timer = 1
+    let timer = 5
     let currentScore = document.createElement('h1')
     const timerDisplay = document.createElement('h1')
+    const buttonDiv = document.createElement('div')
     const dot = document.createElement('div')
-    const reStart = document.createElement('button')
-    const quit = document.createElement('button')
+    const reStart = document.createElement('i')
+    const quit = document.createElement('i')
 
-    reStart.innerText = 'Restart'
-    quit.innerText = 'Quit'
+    buttonDiv.id = 'right-top-corner'
+    reStart.classList.add('fas', 'fa-undo', 'hover-enlarge')
+    reStart.title = 'Restart'
+    quit.classList.add('fas', 'fa-ban', 'hover-enlarge')
     currentScore.innerText = `Score: ${scoreCounter}`
     dot.id = 'dot-lv1'
     const changeTime = () => timerDisplay.innerText = `Time: ${timer}s`
@@ -118,7 +121,7 @@ const dotGameStart = () =>{
     }, 1400);
 
     const gameTime = setInterval(()=>gameCountDown(),1000)
-
+//* SET UP FOR ANIMATION FOR TIMER SOON
     const gameCountDown = () => {
         if(timer > 5){
             timer--
@@ -141,7 +144,8 @@ const dotGameStart = () =>{
         dotSummary(record)
     }
     
-    main.append(currentScore,timerDisplay, dot, reStart, quit)
+    buttonDiv.append(reStart, quit)
+    main.append(currentScore,timerDisplay, dot, buttonDiv)
 }
 
 const dotSummary = (record) =>{
@@ -183,10 +187,6 @@ const submitScore = (record) =>{
     .then(alert('Score sumitted successfully'))
 }
 
-// const fetchHighScore = () => {
-    
-//     .then(r => console.log(r))
-// }
 
 const renderLeaderBoard = async () =>{
     const table = document.createElement('table')
