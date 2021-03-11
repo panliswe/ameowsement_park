@@ -10,20 +10,25 @@ class DotGameScore {
 const catchTheDotGameMenu = () =>{
     clearMainDiv()
     const ruleDiv = document.createElement('div')
-    ruleDiv.className = 'rule-div'
-    ruleDiv.innerText = 'Rule Goes Here'
     const startBtn = document.createElement('button')
+    const br = document.createElement('br')
+
+    ruleDiv.className = 'rule-div'
+    ruleDiv.innerText = 'Mysterious red dot randomly appeared in the dark! Gotta catch it meow!'
     startBtn.innerText = 'START'
     startBtn.className = 'hover-enlarge'
-    ruleDiv.appendChild(startBtn)
-    main.append(ruleDiv)
     startBtn.addEventListener('click', countDownBeforeGame)
+
+    ruleDiv.append(br, startBtn)
+    main.append(ruleDiv)
 } 
 
 const countDownBeforeGame = () =>{
     clearMainDiv()
+    main.id = 'black-fade-in'
     sideNav.style.display = 'none'
     const counterDiv = document.createElement('div')
+    counterDiv.id = 'countdown'
     main.appendChild(counterDiv)
     let prepCounter = 3
     counterDiv.innerText = 'Ready...'
@@ -48,27 +53,32 @@ const countDownBeforeGame = () =>{
 const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
-    let timer = 15
+    let timer = 1
     let currentScore = document.createElement('h1')
     const timerDisplay = document.createElement('h1')
     const dot = document.createElement('div')
     const reStart = document.createElement('button')
-    const quit = document.createElement('quit')
+    const quit = document.createElement('button')
+
+    reStart.innerText = 'Restart'
+    quit.innerText = 'Quit'
+    currentScore.innerText = `Score: ${scoreCounter}`
+    dot.id = 'dot-lv1'
+    const changeTime = () => timerDisplay.innerText = `Time: ${timer}s`
+    changeTime()
+    
     reStart.addEventListener('click', ()=>{
         clearInterval(runningDot)
         clearInterval(gameTime)
         countDownBeforeGame()
     })
     quit.addEventListener('click', ()=>{
+        clearInterval(gameTime)
         clearInterval(runningDot)
+        main.id = 'main-container'
         gameNav()
     })
-    reStart.innerText = 'Restart'
-    quit.innerText = 'Quit'
-    currentScore.innerText = `Score: ${scoreCounter}`
-    const changeTime = () => timerDisplay.innerText = `Time: ${timer}s`
-    changeTime()
-    dot.id = 'dot-lv1'
+
     dot.addEventListener('click', ()=>{
         scoreCounter+=100
         dot.style.display = 'none'
@@ -107,9 +117,8 @@ const dotGameStart = () =>{
         }
     }, 1400);
 
-
     const gameTime = setInterval(()=>gameCountDown(),1000)
-    
+
     const gameCountDown = () => {
         if(timer > 5){
             timer--
@@ -139,21 +148,32 @@ const dotSummary = (record) =>{
     main.innerHTML = ''
     const summaryDiv = document.createElement('div')
     const report = document.createElement('p')
+    const buttonDiv = document.createElement('div')
+    const tableDiv = document.createElement('div')
     const reStart = document.createElement('button')
     const quit = document.createElement('button')
     const submit = document.createElement('button')
+
+    summaryDiv.id = 'summary'
     report.innerText = `Your Score: ${record.score}`
     submit.innerText = 'SUBMIT'
     quit.innerText = 'QUIT'
     reStart.innerText = 'RESTART'
+    buttonDiv.className = 'summary-buttons'
+    tableDiv.className = 'game-table'
+
     submit.addEventListener('click', (e)=>{
         submitScore(record)
         e.target.disabled = 'disabled'
     })
     reStart.addEventListener('click', countDownBeforeGame)
-    quit.addEventListener('click', gameNav)
-    summaryDiv.append(report,submit, reStart, quit)
-    renderLeaderBoard().then(leaderBoard => summaryDiv.appendChild(leaderBoard))
+    quit.addEventListener('click', ()=>{
+        main.id = 'main-container'
+        gameNav()
+    })
+    buttonDiv.append(submit,reStart,quit)
+    summaryDiv.append(report, buttonDiv, tableDiv)
+    renderLeaderBoard().then(leaderBoard => tableDiv.appendChild(leaderBoard))
     main.appendChild(summaryDiv)
     console.log(record.score)
 }
@@ -197,5 +217,9 @@ const renderLeaderBoard = async () =>{
 }
 
 const moreGames = () =>{
-    alert('Moewr games in progress, please check back soon')
+    clearMainDiv()
+    let moreDiv = document.createElement('div')
+    moreDiv.className = 'rule-div'
+    moreDiv.innerText = 'More games under construction, bookmark this page to check back often'
+    main.append(moreDiv)
 }

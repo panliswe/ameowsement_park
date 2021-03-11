@@ -1,8 +1,32 @@
 /** GENERAL SETUP */
 body {
-    background-color: #ffd9b5;
+    margin: 0 0 0 0;
     font-family: Comic Sans MS;
     font-family: 'Cute Font', cursive;
+    overflow: hidden;
+}
+
+#logo{
+    position: fixed;
+    margin-left: 10%;
+    margin-top: 10%;
+    animation: bounceIn 1s;
+    text-align: center;
+    font-size: 2rem;
+    text-shadow: 1px 1px #888888;
+}
+
+#logo-phrase{
+    animation-name: bounceIn;
+    animation-delay: 1s;
+    animation-duration: 1s;
+}
+
+#top-div{
+    background-color: #ffd9b5;
+    position: fixed;
+    width: 100%;
+    height: 100%;
 }
 
 button{
@@ -10,6 +34,7 @@ button{
     color:#fff;
     border:none;
     position:relative;
+    margin: 10px 10px 0 10px;
     height:60px;
     font-size:0.5em;
     padding:0 2em;
@@ -67,9 +92,7 @@ header {
 
 .nav-bar-item {
     background-color: #daaad3;
-    margin-top: 50px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 25px 10px 25px 10px;
     padding-top: 30px;
     padding-bottom: 30px;
     border-radius: 5px;
@@ -80,7 +103,7 @@ header {
 
 @keyframes bounceIn{
     0%{
-        transform: translateY(30px);
+        transform: translateY(25px);
         opacity: 0;
     }
     100%{
@@ -119,27 +142,19 @@ header {
     /* padding-bottom: 25px; */
 }
 
-.rule-div{
-    height: 600px;
-    width: 800px;
-    padding: 10% 10% 10% 10%;
-    position: absolute;
-    background-color: rgb(252, 218, 106);
-    color:rgb(6, 6, 7)
-}
 
 /** MAIN AREA THINGGY */
 
 div#main-container {
-    display: flex;
+    background-color: #fae4cf;
     margin-left: 250px; /* Same as the width of the sidenav */
     font-size: 18px; /* Increased text to enable scrolling */
     position: relative; 
     padding: 0px 10px;
-    min-height: 600px;
-    min-width: 1450;
-    text-align: center;
-    /* height: auto;
+    height: 100vh;
+    /* min-height: 800px;
+    min-width: 1450px;
+    height: auto;
     width: auto; */
   }
 
@@ -147,6 +162,65 @@ div#main-container {
     background-color: #daaad3;
     border-radius: 10px;
     animation: bounceIn 1s;
+}
+
+/** GAME STYLING */
+
+#black-fade-in{
+    margin:0 0 0 0;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    color: white;
+    background-color: black;
+}
+
+.rule-div{
+    font-size: 2.5rem;
+    text-align: center;
+    left: 10%;
+    top: 10%;
+    height: 80%;
+    width: 80%;
+    padding: 10% 10% 10% 10%;
+    position: absolute;
+    background-color: rgb(252, 226, 141);
+    color:rgb(6, 6, 7);
+    border: 4px dotted rgb(248, 168, 121);
+    border-radius: 10px;
+    box-shadow: 10px 10px #888888;
+    animation: bounceIn 1s;
+}
+
+#countdown{
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    font-size: 5rem;
+    scale: 1.3;
+    animation-name: fadeOut;
+    animation-duration: 1s;
+    animation-delay: 4s;
+}
+
+@keyframes fadeOut{
+    0% {opacity: 1;}
+    100%{opacity:0; transform:translate(-50%, -50%) scale(3);}
+}
+
+#summary{
+    text-align: center;
+    font-size: 2rem;
+    margin: 10px;
+}
+
+.game-table{
+    position:absolute;
+    font-size: 1.5rem;
+    margin-top: 5%;
+    margin-left: 50%;
+    transform: translate(-50%);
 }
 
 /* * THINGGY MOVING AROUND MODULE */
@@ -157,7 +231,7 @@ div#main-container {
 
 div#dot-lv1 {
     background-color: red;
-    position: inherit;
+    position: fixed;
     left: var(--xLocation);
     bottom: var(--yLocation);
     height: 40px;
@@ -200,15 +274,46 @@ div#dot-lv4 {
     animation-name: moving;
     animation-iteration-count: infinite;
     animation-direction:alternate;
-
 } 
-  
-  
+
   @keyframes moving {
     from {
         left: 10%;
+        top:10%
     }
     to {
         left: 90%;
+        bottom: 90%;
+    }
+  }
+/** POSIBLE IMPLEMENTATION OF HIGHER LV */
+  posibleLv5 {
+    animation: xAxis 2.5s infinite cubic-bezier(0.02, 0.01, 0.21, 1);
+  }
+  
+  posibleLv5::after {
+    content: '';
+    display: block;
+    background-color: red;
+    position: fixed;
+    left: var(--xLocation);
+    top: var(--yLocation);
+    width: 20px;
+    height: 20px;
+    border-radius: 20px;
+    animation: yAxis 2.5s infinite cubic-bezier(0.3, 0.27, 0.07, 1.64);
+  }
+  
+  @keyframes yAxis {
+    50% {
+      animation-timing-function: cubic-bezier(0.02, 0.01, 0.21, 1);
+      transform: translateY(-200px);
+    }
+  }
+  
+  @keyframes xAxis {
+    50% {
+      animation-timing-function: cubic-bezier(0.3, 0.27, 0.07, 1.64);
+      transform: translateX(200px);
     }
   }

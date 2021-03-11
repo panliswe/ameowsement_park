@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     userLogin()
 })
 const userLogin = () =>{
+    renderLogo()
     const loginDiv = document.createElement('div')
     const header = document.createElement('header')
     const loginForm = document.createElement('form')
@@ -41,12 +42,13 @@ const submitHandle = (e) =>{
     .then(r => {
         currentUser = r.data
         gameNav()
-        musicManagement()
+        BGMplay()
     })
 }
 
 const gameNav = () =>{
     main.innerHTML = ''
+    renderLogo()
     sideNav.style.display = 'block'
     sideNav.innerHTML = ''
     const greetingDiv = document.createElement('div')
@@ -59,6 +61,7 @@ const gameNav = () =>{
 
     greetingDiv.className ='hover-enlarge'
     greeting.innerText = `Welcome, ${currentUser.username}`
+    greeting.id = 'greeting'
     greeting.title = 'Click to edit user'
     highScore.className = 'title'
     highScore.innerText = 'High Score'
@@ -98,6 +101,21 @@ const gameNav = () =>{
     sideNav.append(greetingDiv, gamesDiv, leaderBoardDiv)
 }
 
+const renderLogo = () =>{
+    const logoDiv = document.createElement('div')
+    const logo = document.createElement('img')
+    const phrase = document.createElement('p')
+    logoDiv.id = 'logo'
+    logo.src = 'assets/img/main_logo.png'
+    logo.alt = 'A-meow-sement Park Logo'
+    logo.title = 'A-MEOW-sement Park'
+    logo.width = '490'
+    logo.height = '300'
+    phrase.innerText = 'Where you can spend the day being a cat'
+    logoDiv.append(logo, phrase)
+    main.append(logoDiv)
+}
+
 const getUser = async() =>{
     clearMainDiv()
     const userNameArea = document.createElement('div')
@@ -127,6 +145,8 @@ const getUser = async() =>{
     dotTable.append(header, titleTr)
     dotTableDiv.append(dotTable)
 
+    editBtn.addEventListener('click', (e)=>updateForm(e))
+
     let user = await axios.get(`${usersURL}/${currentUser.id}`)
     for(let i = 0; i< user.data.redDotGames.length; i++){
         const recordTr = document.createElement('tr')
@@ -146,18 +166,58 @@ const getUser = async() =>{
     main.append(userNameArea, dotTableDiv)
 }
 
-const destroyRecord = (e) => {
-    let sure = confirm("Do you want to  delete this record?")
-    if(sure){
+const destroyRecord = async(e) => {
+    let sure = confirm('Are you sure?')
+    let scoreData = await axios.get(`${redDotURL}/topscore`)
+    let topTen = scoreData.data.map(score => score.id)
+    let idNum = parseInt(e.target.id, 10)
+    if(sure && !topTen.includes(idNum)){
         axios.delete(`${redDotURL}/${e.target.id}`)
-        .then(e.target.parentElement.parentElement.remove())
+        .then(()=>{
+            alert('Record Deleted')
+            e.target.parentElement.parentElement.remove()
+        })
+    } else if (sure && topTen.includes(idNum)){
+        alert('Cannot delete record on the leaderboard')
     }
 }
 
-const musicManagement = () =>{
+const updateForm = (e) =>{
+    const userDiv = e.target.parentElement
+    const updateForm = document.createElement('form')
+    const input = document.createElement('input')
+    const submitBtn = document.createElement('button')
+
+    input.value = currentUser.username
+    input.name = 'username'
+    submitBtn.innerText = 'Update'
+    userDiv.innerHTML = ''
+
+    updateForm.addEventListener('submit', (e) =>updateUser(e))
+    updateForm.append(input, submitBtn)
+    userDiv.append(updateForm)
+}
+
+const updateUser = (e) =>{
+    e.preventDefault()
+    axios.patch(`${usersURL}/${currentUser.id}`, {
+        username: e.target.username.value
+    })
+    .then((user)=>{
+        console.log(user)
+        const greeting = document.querySelector('#greeting')
+        currentUser = user.data
+        greeting.innerText = `Welcome, ${currentUser.username}`
+        getUser()
+    })
+}
+
+
+
+const BGMplay = () =>{
     myBGM.loop = true
     myBGM.volume = 0.1
-    // myBGM.play()
+    myBGM.play()
 }
 
 const clearMainDiv = () =>{
