@@ -1,5 +1,6 @@
 const usersURL = "http://localhost:3000/users"
 const redDotURL = "http://localhost:3000/red_dot_games"
+const topDiv = document.querySelector('div#top-div')
 const main = document.querySelector('div#main-container')
 const sideNav = document.querySelector('div.sidenav')
 const myBGM = document.querySelector('audio#BGM')
@@ -46,6 +47,7 @@ const submitHandle = (e) =>{
 
 const gameNav = () =>{
     main.innerHTML = ''
+    main.id = 'main-container'
     renderLogo()
     sideNav.style.display = 'block'
     sideNav.innerHTML = ''
@@ -157,7 +159,7 @@ const getUser = async() =>{
         scoreTh.innerText = user.data.redDotGames[i].score
         dateTh.innerText = user.data.redDotGames[i].created_at.split('T')[0]
         deleteIcon.classList.add('fas', 'fa-trash')
-        deleteIcon.addEventListener('click', (e)=>destroyRecord(e))
+        deleteIcon.addEventListener('click', (e)=>confirmPop(e))
         deleteTh.append(deleteIcon)
         recordTr.append(scoreTh, dateTh, deleteTh)
         dotTable.append(recordTr)
@@ -165,19 +167,21 @@ const getUser = async() =>{
     main.append(userNameArea, dotTableDiv)
 }
 
-const destroyRecord = async(e) => {
-    let sure = confirm('Are you sure?')
+
+const destroyRecord = async(e, confirmation) => {
+    let sure = confirmation
     let scoreData = await axios.get(`${redDotURL}/topscore`)
     let topTen = scoreData.data.map(score => score.id)
     let idNum = parseInt(e.target.id, 10)
+    console.log(idNum)
     if(sure && !topTen.includes(idNum)){
         axios.delete(`${redDotURL}/${e.target.id}`)
         .then(()=>{
-            alert('Record Deleted')
+            warningPop('Record Deleted')
             e.target.parentElement.parentElement.remove()
         })
     } else if (sure && topTen.includes(idNum)){
-        alert('Cannot delete record on the leaderboard')
+        warningPop('Cannot delete record on the leaderboard')
     }
 }
 
@@ -217,12 +221,11 @@ const BGMplay = () =>{
     myBGM.play()
     const musicDiv = document.createElement('div')
     const music = document.createElement('i')
-    const top = document.querySelector('div#top-div')
     musicDiv.className = 'bottom-right-corner'
     music.classList.add('fas', 'fa-volume-up')
     music.addEventListener('click', (e)=>toggleMute(e))
     musicDiv.append(music)
-    top.append(musicDiv)
+    topDiv.append(musicDiv)
 }
 
 const toggleMute = (e) =>{
@@ -237,6 +240,56 @@ const toggleMute = (e) =>{
 
 const clearMainDiv = () =>{
     main.innerHTML = ""
+}
+
+const confirmPop = (e) =>{
+    const bigDiv = document.createElement('div')
+    const smallDiv = document.createElement('div')
+    const br = document.createElement('br')
+    const yesBtn = document.createElement('button')
+    const noBtn = document.createElement('button')
+    let result
+
+    bigDiv.className = 'masking-div'
+    smallDiv.className = 'modal-like'
+    smallDiv.innerText = 'Are you sure?'
+    yesBtn.innerText = 'Yes'
+    noBtn.innerText = 'No'
+    
+    yesBtn.addEventListener('click', ()=>{
+        result = true
+        removeItself(bigDiv)
+        destroyRecord(e, result)
+    })
+    noBtn.addEventListener('click', ()=>{
+        result = false
+        removeItself(bigDiv)
+        destroyRecord(e,result)
+    })
+    smallDiv.append(br, yesBtn, noBtn)
+    bigDiv.append(smallDiv)
+    topDiv.prepend(bigDiv)
+}
+
+const warningPop = (string) => {
+    const bigDiv = document.createElement('div')
+    const smallDiv = document.createElement('div')
+    const br = document.createElement('br')
+    const okBtn = document.createElement('button')
+
+    bigDiv.className = 'masking-div'
+    smallDiv.className = 'modal-like'
+    smallDiv.innerText = string
+    okBtn.innerText = 'OK'
+    
+    okBtn.addEventListener('click', () => removeItself(bigDiv))
+    smallDiv.append(br, okBtn)
+    bigDiv.append(smallDiv)
+    topDiv.prepend(bigDiv)
+}
+
+const removeItself = (itself) =>{
+    itself.remove()
 }
 
         

@@ -1,5 +1,4 @@
 
-
 class DotGameScore {
     constructor(user, score){
         this.user_id = user.id
@@ -49,6 +48,17 @@ const countDownBeforeGame = () =>{
     let interval = setInterval(displayCounter, 1000)
 }
 
+const changeCursor = (e, timer) => {
+    main.id = 'black-fade-out'
+    if(timer === -1){
+        console.log('regular executed')
+        main.id ='main-container'
+    } else {
+        console.log('black one executed')
+        setTimeout(()=>main.id ='black-fade-in',150)
+    }
+}
+
 
 const dotGameStart = () =>{
     clearMainDiv()
@@ -60,6 +70,7 @@ const dotGameStart = () =>{
     const dot = document.createElement('div')
     const reStart = document.createElement('i')
     const quit = document.createElement('i')
+    main.addEventListener('click', (e)=>changeCursor(e, timer))
 
     buttonDiv.id = 'right-top-corner'
     reStart.classList.add('fas', 'fa-undo', 'hover-enlarge')
@@ -76,9 +87,9 @@ const dotGameStart = () =>{
         countDownBeforeGame()
     })
     quit.addEventListener('click', ()=>{
+        main.removeEventListener('click', changeCursor)
         clearInterval(gameTime)
         clearInterval(runningDot)
-        main.id = 'main-container'
         gameNav()
     })
 
@@ -130,7 +141,8 @@ const dotGameStart = () =>{
             timer--
             changeTime()
         } else if (timer === 0){
-            endGame()
+            timer--
+            setTimeout(endGame(),1000)
         } else {
             timer--
             changeTime()
@@ -175,6 +187,12 @@ const dotSummary = (record) =>{
         main.id = 'main-container'
         gameNav()
     })
+
+    const submitScore = (record) =>{
+        axios.post(redDotURL, record)
+        .then(warningPop('Score sumitted successfully'))
+    }    
+
     buttonDiv.append(submit,reStart,quit)
     summaryDiv.append(report, buttonDiv, tableDiv)
     renderLeaderBoard().then(leaderBoard => tableDiv.appendChild(leaderBoard))
@@ -182,10 +200,6 @@ const dotSummary = (record) =>{
     console.log(record.score)
 }
 
-const submitScore = (record) =>{
-    axios.post(redDotURL, record)
-    .then(alert('Score sumitted successfully'))
-}
 
 
 const renderLeaderBoard = async () =>{
