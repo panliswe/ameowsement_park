@@ -152,6 +152,7 @@ const getUser = async() =>{
     dateTh.innerText = 'Date'
     deleteTh.innerText = 'Delete'
     leaderBoard.style.display = 'none'
+    editBtn.style.display = 'none'
 
     userNameArea.append(name, editBtn)
     titleTr.append(scoreTh, dateTh, deleteTh)

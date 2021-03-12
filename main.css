@@ -205,12 +205,15 @@ div#main-container {
   }
 
 .main-sub-div{
-    margin-top: 15px;
-    margin-left: 10px;
+    margin: 15px;
+    padding: 10px;
     font-size: 1.4rem;
     background-color: #daaad3;
     border-radius: 10px;
     animation: bounceIn 1s;
+    overflow: auto;
+    text-align: center;
+    box-shadow: 7px 7px #888888;
 }
 
 /** GAME STYLING */
