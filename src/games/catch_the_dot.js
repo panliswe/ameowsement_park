@@ -128,12 +128,12 @@ const dotGameStart = () =>{
         }
         else if (scoreCounter >= 1000 && scoreCounter <1500){
             dot.id = 'dot-lv3'
-            dot.addEventListener('click',()=>scoreCounter+=9)
+            dot.addEventListener('click',()=>scoreCounter+=5)
             changeLocation()
         }
         else if (scoreCounter >= 1500){
             dot.id = 'dot-lv4'
-            dot.addEventListener('click', ()=>scoreCounter+=13)
+            dot.addEventListener('click', ()=>scoreCounter+=7)
             changeLocation()
         }
     }, 1400);
