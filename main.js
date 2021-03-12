@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 })
 const userLogin = () =>{
     renderLogo()
+    axios.get(usersURL)
     const loginDiv = document.createElement('div')
     const header = document.createElement('header')
     const loginForm = document.createElement('form')
