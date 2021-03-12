@@ -67,7 +67,7 @@ const changeCursor = () => {
 const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
-    let timer = 1
+    let timer = 45
     const numberDiv = document.createElement('div')
     let currentScore = document.createElement('h1')
     const timerDisplay = document.createElement('h1')
