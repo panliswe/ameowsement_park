@@ -8,7 +8,12 @@ body {
 
 i{
     margin: 5px;
+    z-index: 5;
 }
+
+/* tr:nth-child(even){
+    background: rgba(255, 255, 255, 0.342);
+} */
 
 .bottom-right-corner{
     font-size: 2rem;
@@ -230,7 +235,7 @@ div#main-container {
 
 #black-fade-out{
     margin:0 0 0 0;
-    position: fixed;
+    position: absolute;
     width: 100%;
     height: 100%;
     color: white;
@@ -279,11 +284,37 @@ div#main-container {
 }
 
 .game-table{
+    table-layout: fixed;
     position:absolute;
+    display: flex;
     font-size: 1.5rem;
     margin-top: 5%;
     margin-left: 50%;
     transform: translate(-50%);
+    height: 65%;
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar{
+    width: 8px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.507);
+}
+
+.row-rank{
+    width: 10%;
+}
+
+.row-username{
+    width: 50%;
+}
+
+.row-score{
+    width:40%;
 }
 
 /* * THINGGY MOVING AROUND MODULE */

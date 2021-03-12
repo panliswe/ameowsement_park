@@ -67,7 +67,7 @@ const changeCursor = () => {
 const dotGameStart = () =>{
     clearMainDiv()
     let scoreCounter = 0
-    let timer = 45
+    let timer = 1
     const numberDiv = document.createElement('div')
     let currentScore = document.createElement('h1')
     const timerDisplay = document.createElement('h1')
@@ -201,33 +201,38 @@ const dotSummary = (record) =>{
         .then(()=>{
             warningPop('Score sumitted successfully')
             tableDiv.innerHTML = ''
-            renderLeaderBoard().then(leaderBoard => tableDiv.appendChild(leaderBoard))
+            renderLeaderBoard(redDotURL).then(leaderBoard => tableDiv.appendChild(leaderBoard))
         })
     }    
 
+    renderLeaderBoard(redDotURL).then(leaderBoard => tableDiv.appendChild(leaderBoard))
     buttonDiv.append(submit,reStart,quit)
     summaryDiv.append(report, buttonDiv, tableDiv)
-    renderLeaderBoard().then(leaderBoard => tableDiv.appendChild(leaderBoard))
     main.appendChild(summaryDiv)
     console.log(record.score)
 }
 
 
 
-const renderLeaderBoard = async () =>{
+const renderLeaderBoard = async (url) =>{
     const table = document.createElement('table')
     const titleTr = document.createElement('tr')
     const rankTh = document.createElement('th')
     const usernameTh = document.createElement('th')
     const scoreTh = document.createElement('th')
+    const tHead = document.createElement('thead')
+    const tBody = document.createElement('tbody')
 
     rankTh.innerText = 'Rank'
     usernameTh.innerText = 'Username'
     scoreTh.innerText = 'Score'
+    rankTh.className = 'row-rank'
+    usernameTh.className = 'row-username'
+    scoreTh.className = 'row-scoreTh'
     titleTr.append(rankTh, usernameTh, scoreTh)
-    table.appendChild(titleTr)
+    tHead.append(titleTr)
 
-    const res = await axios.get(`${redDotURL}/topscore`)
+    const res = await axios.get(url)
     for(let rank = 0; rank < res.data.length; rank++){
         const recordTr = document.createElement('tr')
         const rankTh = document.createElement('th')
@@ -237,8 +242,10 @@ const renderLeaderBoard = async () =>{
         usernameTh.innerText = `${res.data[rank].user.username}`
         scoreTh.innerText = `${res.data[rank].score}`
         recordTr.append(rankTh, usernameTh, scoreTh)
-        table.appendChild(recordTr)
+        tBody.appendChild(recordTr)
     }
+    
+    table.append(tHead, tBody)
     return table
 }
 

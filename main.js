@@ -98,7 +98,7 @@ const gameNav = () =>{
             leaderBoardDiv.append(highScore)
             switch (game){
                 case 'Catch the Dot':
-                    renderLeaderBoard().then(leaderBoard => leaderBoardDiv.appendChild(leaderBoard))
+                    renderLeaderBoard(`${redDotURL}/topscore`).then(leaderBoard => leaderBoardDiv.appendChild(leaderBoard))
                     break
                 case 'More Games to Come':
                     leaderBoardDiv.style.display = 'none'

@@ -1,7 +1,7 @@
 class RedDotGamesController < ApplicationController
 
     def index
-        rounds = RedDotGame.all
+        rounds = RedDotGame.order('score DESC')
         render json: rounds
     end
 
