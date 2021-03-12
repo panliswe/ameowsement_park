@@ -198,9 +198,11 @@ const dotSummary = (record) =>{
 
     const submitScore = (record) =>{
         axios.post(redDotURL, record)
-        .then(warningPop('Score sumitted successfully'))
-        tableDiv.innerHTML = ''
-        renderLeaderBoard().then(leaderBoard => tableDiv.appendChild(leaderBoard))
+        .then(()=>{
+            warningPop('Score sumitted successfully')
+            tableDiv.innerHTML = ''
+            renderLeaderBoard().then(leaderBoard => tableDiv.appendChild(leaderBoard))
+        })
     }    
 
     buttonDiv.append(submit,reStart,quit)
