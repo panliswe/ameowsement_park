@@ -10,24 +10,26 @@ Each game will promp a rule message simply explaining the game play flow for eac
 
 Each game will have their own leaderboard of top 10 score.
 
-Users are able to submit their scrore to the database 
+Users are able to submit their scrore to the database
 
 Each user will have access to all of their game records and will be able to delete their record if it's not on the leaderboard.
 
 ## Play Now
 
-To see the app on public domain, click [here](https://oopanpan.github.io/ameowsement)
+[Live Demo](https://oopanpan.github.io/ameowsement_park/)
 
 ## Play Later
 
 To run the app on local machine first clone this repository
 
 ### making a local copy of the app
+
 ```bash
 git clone https://github.com/oopanpan/ameowsement.git
 ```
 
 ### check environment
+
 this project was built in ruby 2.7.1 and postgreSQL as database, you can install using homebrew
 
 ```bash
@@ -35,9 +37,10 @@ $ brew install ruby
 $ brew install postgres
 ```
 
-### check dependencies and run migration 
+### check dependencies and run migration
 
 **in ameowsment_backend_api**
+
 ```bash
 $ bundle && yarn
 $ rails db:setup
@@ -46,6 +49,7 @@ $ rails db:setup
 ### start the server
 
 **in ameowsment_backend_api**
+
 ```bash
 $ rails s
 ```
